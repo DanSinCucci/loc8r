@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <link rel="stylesheet" href="public/stylesheets/style.css">
+<h1>Loc8r Geo-Position</h1>
+
+<p>Name: 
+  <input type="text" id="userID" value="            ">
+  </p>
+  
+  <br> <br> 
+  
+  <p>Address: 
+    <input type="text" id="location" value="            ">
+    <br> <br>
+    <button onclick="getLatLong()">SUBMIT</button>
+    </p>
+
+<br>  
+<div id="googleMap" style="width:600px;height:400px;"></div>
+
+<script>
+
+
+function getLatLong(){
+        var geo = new google.maps.Geocoder;
+
+
+        // value that comes from a textbox called location
+        var user = document.getElementById("userID").value;
+        var address = document.getElementById("location").value;
+        alert("Just Checking :)" + " " + user + " " + address);
+
+
+
+        geo.geocode({'address':address},function(results, status){
+        if (status == google.maps.GeocoderStatus.OK) {
+              var lat = results[0].geometry.location.lat();
+              var lng = results[0].geometry.location.lng();
+   
+              var latlng = new google.maps.LatLng(lat,lng);
+   
+              
+               
+              var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+              var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title:name
+              });
+              
+              $.get( "http://localhost:1346?nome="+user+"&lat="+lat+"&lon="+lng, null);   
+        } else {
+              // alert("Geocoder failed: " + status);
+        }
+        });
+  }
+
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:5,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+
+function showLocalizations() {
+
+$.get( "http://localhost:1345/", function( data ) {
+          
+          var lat=-20.1;
+          var lon=50.1;
+
+          var myLatlng = new google.maps.LatLng(lat, lon);
+          var mapProp = {
+                      center:myLatlng,
+                      zoom:5,
+                      mapTypeId:google.maps.MapTypeId.ROADMAP,
+                      mapTypeControl: false
+          };
+
+          // Creating map object
+          var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+          
+          var obj = jQuery.parseJSON(data);
+          
+          $.each($.parseJSON(data), function(idx, obj) {
+          
+                      var lat=obj.lat;
+                      var lon=obj.lon;
+          
+                      var myLatlng = new google.maps.LatLng(lat, lon);
+                      
+                      var marker = new google.maps.Marker({
+                                 position: myLatlng,
+                                 map: map,
+                                 title: obj.name
+                      });
+          });
+          
+});
+
+}
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC97gL70taPBUi5P_DvKsaTpg0v5-x9YIk&callback=myMap"></script>
+
+</body>
+</html>
