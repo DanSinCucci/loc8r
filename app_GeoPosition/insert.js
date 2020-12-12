@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('./locations');
+require('../app_api/models/locations');
 
 var http = require('http');
 var url = require('url');
@@ -24,7 +24,7 @@ http.createServer(function (req, res) {
 	name: user,
 	loc: {
    type: Point,
-	coordinates: [125.6, 10.1]
+	coordinates: [lng, lat]
 	}};
 
 	collection.insert(doc , { w: 0 });

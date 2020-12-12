@@ -41,10 +41,10 @@ const locationSchema = new mongoose.Schema({
     max: 5
   },
   facilities: [String],
-  coords: {
+ coords: {
     type: [Number],
     index: '2dsphere'
-  },
+  } ,
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema]
 });
