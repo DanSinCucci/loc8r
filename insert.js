@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+require('./locations');
 
 var http = require('http');
 var url = require('url');

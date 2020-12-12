@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html>     
+
+      <link rel="stylesheet" href="public\stylesheets\style.css">
+
 <body>
-  <link rel="stylesheet" href="public/stylesheets/style.css">
+
 <h1>Loc8r Geo-Position</h1>
 
 <p>Name: 
@@ -21,7 +24,6 @@
 
 <script>
 
-
 function getLatLong(){
         var geo = new google.maps.Geocoder;
 
@@ -29,6 +31,8 @@ function getLatLong(){
         // value that comes from a textbox called location
         var user = document.getElementById("userID").value;
         var address = document.getElementById("location").value;
+
+        // working confirmation 
         alert("Just Checking :)" + " " + user + " " + address);
 
 
@@ -101,7 +105,6 @@ $.get( "http://localhost:1345/", function( data ) {
 });
 
 }
-
 
 </script>
 
